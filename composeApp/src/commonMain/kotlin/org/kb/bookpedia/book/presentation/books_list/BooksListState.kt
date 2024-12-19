@@ -4,7 +4,7 @@ import org.kb.bookpedia.book.domain.Book
 import org.kb.bookpedia.core.presentation.UiText
 
 data class BooksListState(
-    val searchString: String = "Kotlin",
+    val searchQuery: String = "Kotlin",
     val searchResults: List<Book> = emptyList(),
     val favBook: List<Book> = emptyList(),
     val isLoading : Boolean = false,

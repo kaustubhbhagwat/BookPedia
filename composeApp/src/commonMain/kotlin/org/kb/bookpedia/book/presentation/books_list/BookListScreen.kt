@@ -19,13 +19,11 @@ fun BookListScreenRoot(
     BookListScreen(
         state = state,
         onAction =  { action ->
-            when(action){
+            when(action) {
                 is BookListAction.OnBookClick -> onBookClick(action.book)
-                else -> {
-
-                }
+                else -> Unit
             }
-
+                viewModel.onAction(action)
         }
     )
 }

@@ -23,15 +23,16 @@ fun BookListScreenRoot(
                 is BookListAction.OnBookClick -> onBookClick(action.book)
                 else -> Unit
             }
-                viewModel.onAction(action)
+            viewModel.onAction(action)
         }
     )
 }
 
 @Composable
-fun BookListScreen(
+private fun BookListScreen(
     state: BooksListState,
     onAction: (BookListAction) -> Unit
 ){
+
 
 }

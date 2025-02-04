@@ -1,12 +1,15 @@
 package org.kb.bookpedia.book.presentation.books_list.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,9 +19,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImagePainter
+import bookpedia.composeapp.generated.resources.Res
+import bookpedia.composeapp.generated.resources.book_error_2
 import coil3.compose.rememberAsyncImagePainter
+import org.jetbrains.compose.resources.painterResource
 import org.kb.bookpedia.book.domain.Book
 import org.kb.bookpedia.core.presentation.LightBlue
 
@@ -62,12 +68,27 @@ fun BookListItem(
                     onError = {
                         it.result.throwable.printStackTrace()
                         imageLoadResult = Result.failure(it.result.throwable)
-
                     }
                 )
+                when (val result = imageLoadResult){
+                    null -> CircularProgressIndicator()
+                    else -> {
+                        Image(
+                            painter = if (result.isSuccess) painter else {
+                                painterResource(Res.drawable.book_error_2)
+                            },
+                            contentDescription = book.title,
+                            contentScale = if (result.isSuccess) ContentScale.Crop else ContentScale.Fit,
+                            modifier = Modifier
+                                .aspectRatio(
+                                    0.65f,
+                                    matchHeightConstraintsFirst = true
+                                )
+                        )
+                    }
+                }
             }
         }
-
     }
 
 }

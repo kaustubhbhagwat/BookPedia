@@ -17,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImagePainter
+import coil3.compose.rememberAsyncImagePainter
 import org.kb.bookpedia.book.domain.Book
 import org.kb.bookpedia.core.presentation.LightBlue
 
@@ -43,11 +45,26 @@ fun BookListItem(
                 modifier = Modifier
                     .height(100.dp),
                 contentAlignment = Alignment.Center
-            ){
-                var imageLoadResult by remember{
+            ) {
+                var imageLoadResult by remember {
                     mutableStateOf<Result<Painter>?>(null)
                 }
+                val painter = rememberAsyncImagePainter(
+                    model = book.imageUrl,
+                    onSuccess = {
+                        imageLoadResult =
+                            if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
+                                Result.success(it.painter)
+                            } else {
+                                Result.failure(Exception("Invalid Image Size"))
+                            }
+                    },
+                    onError = {
+                        it.result.throwable.printStackTrace()
+                        imageLoadResult = Result.failure(it.result.throwable)
 
+                    }
+                )
             }
         }
 

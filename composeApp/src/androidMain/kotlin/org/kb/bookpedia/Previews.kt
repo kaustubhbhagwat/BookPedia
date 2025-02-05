@@ -8,6 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import org.kb.bookpedia.book.domain.Book
+import org.kb.bookpedia.book.presentation.books_list.BookListScreen
+import org.kb.bookpedia.book.presentation.books_list.BooksListState
 import org.kb.bookpedia.book.presentation.books_list.components.BookSearchBar
 
 @Preview
@@ -24,6 +27,35 @@ fun BookSearchBarPreview(){
                 onImeSearch = {},
                 modifier = Modifier.fillMaxWidth()
             )
+            BookListScreenPreview()
         }
     }
+}
+
+private val books =(1..10).map {
+    Book(
+        id = it.toString(),
+        title = "Book $it",
+        authors = listOf("Kaustubh Bhagwat"),
+        description = "Description $it",
+        languages = emptyList(),
+        firstPublishYear = null,
+        avgRating = 4.6,
+        numPages = 100,
+        imageUrl = "https://text.com",
+        numEditions = 3,
+        ratingCount = 5
+    )
+}
+
+@org.jetbrains.compose.ui.tooling.preview.Preview
+@Composable
+fun BookListScreenPreview(){
+    BookListScreen(
+        state = BooksListState(
+            searchResults = books
+        ),
+        onAction = {
+        }
+    )
 }

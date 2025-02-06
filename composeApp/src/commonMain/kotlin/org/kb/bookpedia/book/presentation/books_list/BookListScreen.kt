@@ -1,6 +1,7 @@
 package org.kb.bookpedia.book.presentation.books_list
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +15,11 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -25,7 +28,6 @@ import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,10 +35,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bookpedia.composeapp.generated.resources.Res
 import bookpedia.composeapp.generated.resources.favourites
+import bookpedia.composeapp.generated.resources.no_fav_books
 import bookpedia.composeapp.generated.resources.no_search_results
 import bookpedia.composeapp.generated.resources.search_results
 import org.jetbrains.compose.resources.stringResource
@@ -76,6 +78,8 @@ fun BookListScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
     val pagerState = rememberPagerState { 2 }
     val searchResultsListState = rememberLazyListState()
+    val favBooksListState = rememberLazyListState()
+    val horizontalScrollState = rememberScrollState(0)
 
     LaunchedEffect(state.searchResults){
             searchResultsListState.animateScrollToItem(0)
@@ -112,7 +116,7 @@ fun BookListScreen(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TabRow(
+               TabRow(
                     selectedTabIndex = state.selectedTabIndex,
                     modifier = Modifier
                         .padding(vertical = 12.dp)
@@ -144,7 +148,7 @@ fun BookListScreen(
                     Tab(
                         selected = state.selectedTabIndex == 1,
                         onClick = {
-                            onAction(BookListAction.OnTabSelected(0))
+                            onAction(BookListAction.OnTabSelected(1))
                         },
                         modifier = Modifier.weight(1f),
                         selectedContentColor = SandYellow,
@@ -205,9 +209,25 @@ fun BookListScreen(
                                     }
                                 }
                             }
-
                             1 -> {
-
+                                if (state.favBook.isEmpty()){
+                                    Text(
+                                        text = stringResource(Res.string.no_fav_books),
+                                        textAlign = TextAlign.Center,
+                                        style = MaterialTheme.typography.headlineSmall,
+                                        color = MaterialTheme.colorScheme.error
+                                    )
+                                }else{
+                                    BookList(
+                                        books = state.favBook,
+                                        onBookClick = {
+                                            onAction(BookListAction.OnBookClick(it))
+                                        },
+                                        modifier = Modifier
+                                            .fillMaxSize(),
+                                        scrollState = favBooksListState
+                                    )
+                                }
                             }
                         }
                     }

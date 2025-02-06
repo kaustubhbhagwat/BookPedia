@@ -199,7 +199,6 @@ fun BookListScreen(
                                                 text = stringResource(Res.string.no_search_results),
                                                 textAlign = TextAlign.Center,
                                                 style = MaterialTheme.typography.headlineSmall,
-                                                color = MaterialTheme.colorScheme.error
                                             )
                                         }
 
@@ -221,10 +220,10 @@ fun BookListScreen(
                             1 -> {
                                 if (state.favBook.isEmpty()) {
                                     Text(
+                                        modifier = Modifier.padding(16.dp),
                                         text = stringResource(Res.string.no_fav_books),
                                         textAlign = TextAlign.Center,
-                                        style = MaterialTheme.typography.headlineSmall,
-                                        color = MaterialTheme.colorScheme.error
+                                        style = MaterialTheme.typography.headlineSmall
                                     )
                                 } else {
                                     BookList(

@@ -81,8 +81,14 @@ fun BookListScreen(
     val favBooksListState = rememberLazyListState()
     val horizontalScrollState = rememberScrollState(0)
 
-    LaunchedEffect(state.searchResults){
-            searchResultsListState.animateScrollToItem(0)
+    LaunchedEffect(state.searchResults) {
+        searchResultsListState.animateScrollToItem(0)
+    }
+    LaunchedEffect(state.selectedTabIndex) {
+        pagerState.animateScrollToPage(state.selectedTabIndex)
+    }
+    LaunchedEffect(pagerState.currentPage) {
+        onAction(BookListAction.OnTabSelected(pagerState.currentPage))
     }
 
     Column(
@@ -116,7 +122,7 @@ fun BookListScreen(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-               TabRow(
+                TabRow(
                     selectedTabIndex = state.selectedTabIndex,
                     modifier = Modifier
                         .padding(vertical = 12.dp)
@@ -178,8 +184,8 @@ fun BookListScreen(
                                 if (state.isLoading) {
                                     CircularProgressIndicator()
                                 } else {
-                                    when{
-                                        state.errorMessage != null ->{
+                                    when {
+                                        state.errorMessage != null -> {
                                             Text(
                                                 text = state.errorMessage.asString(),
                                                 textAlign = TextAlign.Center,
@@ -187,7 +193,8 @@ fun BookListScreen(
                                                 color = MaterialTheme.colorScheme.error
                                             )
                                         }
-                                        state.searchResults.isEmpty() ->{
+
+                                        state.searchResults.isEmpty() -> {
                                             Text(
                                                 text = stringResource(Res.string.no_search_results),
                                                 textAlign = TextAlign.Center,
@@ -195,7 +202,8 @@ fun BookListScreen(
                                                 color = MaterialTheme.colorScheme.error
                                             )
                                         }
-                                        else->{
+
+                                        else -> {
                                             BookList(
                                                 books = state.searchResults,
                                                 onBookClick = {
@@ -209,15 +217,16 @@ fun BookListScreen(
                                     }
                                 }
                             }
+
                             1 -> {
-                                if (state.favBook.isEmpty()){
+                                if (state.favBook.isEmpty()) {
                                     Text(
                                         text = stringResource(Res.string.no_fav_books),
                                         textAlign = TextAlign.Center,
                                         style = MaterialTheme.typography.headlineSmall,
                                         color = MaterialTheme.colorScheme.error
                                     )
-                                }else{
+                                } else {
                                     BookList(
                                         books = state.favBook,
                                         onBookClick = {

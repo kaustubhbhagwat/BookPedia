@@ -3,8 +3,6 @@ package org.kb.bookpedia.core.data
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.SocketTimeoutException
-import io.ktor.client.plugins.ServerResponseException
-import io.ktor.client.request.HttpRequest
 import io.ktor.client.statement.HttpResponse
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ensureActive
@@ -37,12 +35,12 @@ suspend inline fun <reified T> responseToResult(
             try {
                 Result.Success(response.body<T>())
             } catch (e: NoTransformationFoundException) {
-                Result.Error(DataError.Remote.SERIALIZATION_ERRORS)
+                Result.Error(DataError.Remote.SERIALIZATION)
             }
         }
 
         408 -> Result.Error(DataError.Remote.REQUEST_TIMEOUT)
-        429 -> Result.Error(DataError.Remote.TOO_MANY_REQUEST)
+        429 -> Result.Error(DataError.Remote.TOO_MANY_REQUESTS)
         in 500..599 -> Result.Error(DataError.Remote.SERVER)
         else -> Result.Error(DataError.Remote.UNKNOWN)
     }

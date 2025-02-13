@@ -8,22 +8,14 @@ import org.kb.bookpedia.book.data.repository.DefaultBookRepository
 import org.kb.bookpedia.book.presentation.books_list.BookListScreenRoot
 import org.kb.bookpedia.book.presentation.books_list.BookListViewModel
 import org.kb.bookpedia.core.data.HttpClientFactory
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @Preview
-fun App(engine: HttpClientEngine) {
+fun App() {
+    val viewModel = koinViewModel<BookListViewModel>()
     BookListScreenRoot(
-        viewModel = remember {
-            BookListViewModel(
-                bookRepository = DefaultBookRepository(
-                    remoteBookDataSource = KtorRemoteBookDataSource(
-                        httpClient = HttpClientFactory.create(
-                            engine = engine
-                        )
-                    )
-                )
-            )
-        },
+        viewModel = viewModel,
         onBookClick = {
         }
     )

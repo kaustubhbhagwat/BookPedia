@@ -5,9 +5,8 @@ import androidx.compose.ui.window.application
 import org.kb.bookpedia.app.App
 import org.kb.bookpedia.di.initKoin
 
-fun main() = {
-    initKoin()
-    application {
+fun main() = application {
+        initKoin()
         Window(
             onCloseRequest = ::exitApplication,
             title = "BookPedia",
@@ -15,4 +14,3 @@ fun main() = {
             App()
         }
     }
-}

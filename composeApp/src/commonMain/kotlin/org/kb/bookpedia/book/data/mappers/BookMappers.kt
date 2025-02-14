@@ -6,7 +6,7 @@ import org.kb.bookpedia.book.domain.Book
 
 fun SearchBookDto.toBook(): Book {
     return Book(
-        id = id,
+        id = id.substringAfterLast("/"),
         title = title,
         imageUrl = if (coverKey != null) {
             "https://covers.openlibrary.org/b/olid/${coverKey}-L.jpg"

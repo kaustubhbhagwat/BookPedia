@@ -78,7 +78,8 @@ private fun BookDetailScreen(
         },
         modifier = Modifier.fillMaxSize(),
     ) {
-        if (state.book != null) {
+
+        if (state.book!= null) {
             Column(
                 modifier = Modifier
                     .widthIn(max = 700.dp)

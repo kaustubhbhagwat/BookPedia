@@ -189,7 +189,7 @@ fun BlurredImageBackground(
                     }
                 }
             }
-            content
+            content()
         }
     }
 }

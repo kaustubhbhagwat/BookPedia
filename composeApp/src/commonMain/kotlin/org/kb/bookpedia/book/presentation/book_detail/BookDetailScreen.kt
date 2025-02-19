@@ -31,7 +31,6 @@ private fun BookDetailScreen(
     state: BookDetailState,
     onAction: (BookDetailAction) -> Unit
 ) {
-
     BlurredImageBackground(
         imageUrl = state.book?.imageUrl,
         isFavorite = state.isFavorite,

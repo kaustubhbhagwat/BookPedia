@@ -6,7 +6,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -20,7 +19,6 @@ import org.kb.bookpedia.book.domain.Book
 import org.kb.bookpedia.book.domain.BookRepository
 import org.kb.bookpedia.core.domain.onError
 import org.kb.bookpedia.core.domain.onSuccess
-import org.kb.bookpedia.core.presentation.UiText
 import org.kb.bookpedia.core.presentation.toUiText
 
 

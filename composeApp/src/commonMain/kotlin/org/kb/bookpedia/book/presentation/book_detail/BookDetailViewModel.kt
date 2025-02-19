@@ -15,20 +15,18 @@ class BookDetailViewModel : ViewModel() {
     fun onAction(action: BookDetailAction) {
         when (action) {
             is BookDetailAction.OnSelectedBookChange -> {
-                _state.update {
-                    it.copy(
+                _state.update { it.copy(
                         book = action.book
                     )
                 }
             }
-
-            is BookDetailAction.onFavouriteClick -> {
-                _state.update {
-                    it.copy(
-                        isFavorite = it.isFavorite
-                    )
-                }
-            }
+//            is BookDetailAction.onFavouriteClick -> {
+//                _state.update {
+//                    it.copy(
+//                        isFavorite = it.isFavorite
+//                    )
+//                }
+//            }
 
             else -> {
 

@@ -59,7 +59,7 @@ fun BlurredImageBackground(
     onFavoriteClicked: () -> Unit,
     onBackClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    content: () -> Unit
+    content: @Composable () -> Unit
 ) {
     var imageLoadResult by remember {
         mutableStateOf<Result<Painter>?>(null)
@@ -134,10 +134,9 @@ fun BlurredImageBackground(
             Spacer(modifier = Modifier.fillMaxHeight(0.15f))
             ElevatedCard(
                 modifier = Modifier
-                    .height(200.dp)
+                    .height(230.dp)
                     .aspectRatio(2 / 3f),
                 shape = RoundedCornerShape(8.dp),
-                colors = CardDefaults.elevatedCardColors(containerColor = Color.Transparent),
                 elevation = CardDefaults.elevatedCardElevation(defaultElevation = 15.dp),
             ) {
                 AnimatedContent(

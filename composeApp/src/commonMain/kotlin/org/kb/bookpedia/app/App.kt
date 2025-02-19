@@ -41,7 +41,6 @@ fun App() {
                         selectedBookViewModel.onSelectBook(null)
                     }
 
-
                     BookListScreenRoot(
                         viewModel = viewModel,
                         onBookClick = { book ->

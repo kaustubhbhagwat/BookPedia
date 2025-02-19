@@ -46,6 +46,9 @@ fun BlurredImageBackground(
             } else {
                 Result.failure(Exception("Invalid Image dimensions"))
             }
+        },
+        onError = {
+            it.result.throwable.printStackTrace()
         }
     )
 

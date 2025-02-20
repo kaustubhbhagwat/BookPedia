@@ -20,14 +20,13 @@ class BookDetailViewModel : ViewModel() {
                     )
                 }
             }
-//            is BookDetailAction.onFavouriteClick -> {
-//                _state.update {
-//                    it.copy(
-//                        isFavorite = it.isFavorite
-//                    )
-//                }
-//            }
-
+            is BookDetailAction.onFavouriteClick -> {
+                _state.update {
+                    it.copy(
+                        isFavorite = it.isFavorite
+                    )
+                }
+            }
             else -> {
 
             }

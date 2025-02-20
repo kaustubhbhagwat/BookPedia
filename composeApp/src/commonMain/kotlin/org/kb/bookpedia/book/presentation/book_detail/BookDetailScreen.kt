@@ -92,13 +92,15 @@ private fun BookDetailScreen(
             ) {
                 Text(
                     text = state.book.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    textAlign = TextAlign.Center
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Text(
                     text = state.book.authors.joinToString(),
                     style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
                 Row(
@@ -149,7 +151,7 @@ private fun BookDetailScreen(
                                     modifier = Modifier.padding(2.dp)
                                 ) {
                                     Text(
-                                        text = language.toUpperCase(),
+                                        text = language.uppercase(),
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                 }

@@ -3,6 +3,7 @@ package org.kb.bookpedia.book.data.network
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import org.kb.bookpedia.book.data.dto.BookWorkDto
 import org.kb.bookpedia.book.data.dto.SearchResponseDto
 import org.kb.bookpedia.core.data.safeCall
 import org.kb.bookpedia.core.domain.DataError
@@ -17,7 +18,7 @@ class KtorRemoteBookDataSource(
         query: String,
         resultLimit: Int?
     ): Result<SearchResponseDto, DataError.Remote> {
-        return safeCall {
+        return safeCall<SearchResponseDto> {
             httpClient.get(
                 urlString = "$BASE_URL/search.json",
             ) {
@@ -31,5 +32,13 @@ class KtorRemoteBookDataSource(
             }
         }
 
+    }
+
+    override suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, DataError.Remote> {
+        return safeCall<BookWorkDto> {
+            httpClient.get(
+                urlString = "$BASE_URL/works/$bookWorkId.json"
+            )
+        }
     }
 }

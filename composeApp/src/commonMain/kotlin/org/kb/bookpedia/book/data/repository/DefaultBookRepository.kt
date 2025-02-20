@@ -10,8 +10,8 @@ import org.kb.bookpedia.core.domain.map
 
 class DefaultBookRepository(
     private val remoteBookDataSource: RemoteBookDataSource
-): BookRepository {
-   override suspend fun searchBooks(query: String): Result<List<Book>, DataError.Remote> {
+) : BookRepository {
+    override suspend fun searchBooks(query: String): Result<List<Book>, DataError.Remote> {
         return remoteBookDataSource
             .searchBooks(query)
             .map { dto ->
@@ -19,5 +19,11 @@ class DefaultBookRepository(
                     it.toBook()
                 }
             }
+    }
+
+    override suspend fun getBookDescription(bookId: String): Result<String?, DataError> {
+        return remoteBookDataSource
+            .getBookDetails(bookId)
+            .map { it.description }
     }
 }

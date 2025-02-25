@@ -1,5 +1,6 @@
 package org.kb.bookpedia.book.data.mappers
 
+import org.kb.bookpedia.book.data.database.BookEntity
 import org.kb.bookpedia.book.data.dto.SearchBookDto
 import org.kb.bookpedia.book.domain.Book
 
@@ -22,5 +23,20 @@ fun SearchBookDto.toBook(): Book {
         numPages = numPagesMedian,
         numEditions = numEditions ?: 0
     )
+}
 
+fun Book.toBookEntity(): BookEntity {
+    return BookEntity(
+        id = id,
+        languages = languages,
+        authors = authors,
+        description = description,
+        imageUrl = imageUrl,
+        ratingsCount = ratingCount,
+        ratingsAverage = avgRating,
+        numEditions = numEditions,
+        numOfPagesMedian = numPages,
+        title = title,
+        firstPublishYear = firstPublishYear
+    )
 }

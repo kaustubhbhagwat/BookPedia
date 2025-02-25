@@ -3,9 +3,12 @@ package org.kb.bookpedia.book.presentation.book_detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.toRoute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -27,6 +30,7 @@ class BookDetailViewModel(
     val state = _state
         .onStart {
             fetchBookDescription()
+            observeFavoriteStatus()
         }
         .stateIn(
             viewModelScope,
@@ -46,17 +50,29 @@ class BookDetailViewModel(
             }
 
             is BookDetailAction.onFavouriteClick -> {
-                _state.update {
-                    it.copy(
-                        isFavorite = it.isFavorite
-                    )
+                viewModelScope.launch {
+                    if (state.value.isFavorite) {
+                        bookRepository.deleteFromFavorite(id = bookId)
+                    } else {
+                        state.value.book?.let { book ->
+                            bookRepository.markAsFavorite(book)
+                        }
+                    }
                 }
             }
 
-            else -> {
-
-            }
+            else -> Unit
         }
+    }
+
+
+
+    private fun observeFavoriteStatus() {
+        bookRepository
+            .isBookFavorite(bookId)
+            .onEach { isFavorite ->
+                _state.update { it.copy(isFavorite = isFavorite) }
+            }.launchIn(viewModelScope)
     }
 
     private fun fetchBookDescription() {

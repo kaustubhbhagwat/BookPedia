@@ -1,7 +1,6 @@
 package org.kb.bookpedia.book.presentation.books_list
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
@@ -19,7 +17,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -218,7 +215,7 @@ fun BookListScreen(
                             }
 
                             1 -> {
-                                if (state.favBook.isEmpty()) {
+                                if (state.favoriteBooks.isEmpty()) {
                                     Text(
                                         modifier = Modifier.padding(16.dp),
                                         text = stringResource(Res.string.no_fav_books),
@@ -227,7 +224,7 @@ fun BookListScreen(
                                     )
                                 } else {
                                     BookList(
-                                        books = state.favBook,
+                                        books = state.favoriteBooks,
                                         onBookClick = {
                                             onAction(BookListAction.OnBookClick(it))
                                         },

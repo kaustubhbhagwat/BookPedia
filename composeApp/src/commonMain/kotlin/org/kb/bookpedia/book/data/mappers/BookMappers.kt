@@ -40,3 +40,19 @@ fun Book.toBookEntity(): BookEntity {
         firstPublishYear = firstPublishYear
     )
 }
+
+fun BookEntity.toBook(): Book  {
+    return Book(
+        id = id,
+        languages = languages,
+        authors = authors,
+        description = description,
+        imageUrl = imageUrl,
+        ratingCount = ratingsCount,
+        avgRating = ratingsAverage,
+        numEditions = numEditions,
+        numPages = numOfPagesMedian,
+        title = title,
+        firstPublishYear = firstPublishYear
+    )
+}

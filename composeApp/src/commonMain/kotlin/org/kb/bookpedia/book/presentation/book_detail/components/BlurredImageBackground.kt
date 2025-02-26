@@ -62,7 +62,6 @@ fun BlurredImageBackground(
     var imageLoadResult by remember {
         mutableStateOf<Result<Painter>?>(null)
     }
-
     val painter = rememberAsyncImagePainter(
         model = imageUrl,
         onSuccess = {

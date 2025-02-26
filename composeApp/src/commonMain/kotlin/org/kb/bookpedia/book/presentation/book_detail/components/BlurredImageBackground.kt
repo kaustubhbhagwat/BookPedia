@@ -12,20 +12,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,6 +47,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.kb.bookpedia.core.presentation.DarkBlue
 import org.kb.bookpedia.core.presentation.DesertWhite
+import org.kb.bookpedia.core.presentation.PulseAnimation
 import org.kb.bookpedia.core.presentation.SandYellow
 
 @Composable
@@ -144,7 +142,14 @@ fun BlurredImageBackground(
                 ) { result ->
 
                     when (result) {
-                        null -> CircularProgressIndicator()
+                        null ->
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                PulseAnimation(modifier = modifier.size(60.dp))
+                            }
+
                         else -> {
                             Box {
                                 Image(
@@ -171,15 +176,15 @@ fun BlurredImageBackground(
                                         )
                                 ) {
                                     Icon(
-                                        imageVector = if(isFavorite){
+                                        imageVector = if (isFavorite) {
                                             Icons.Filled.Favorite
-                                        }else{
+                                        } else {
                                             Icons.Outlined.FavoriteBorder
                                         },
                                         tint = Color.Red,
-                                        contentDescription =  if(isFavorite){
+                                        contentDescription = if (isFavorite) {
                                             stringResource(Res.string.remove_from_favorites)
-                                        }else{
+                                        } else {
                                             stringResource(Res.string.mark_as_favorite)
                                         }
                                     )

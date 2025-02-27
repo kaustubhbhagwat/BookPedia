@@ -143,10 +143,10 @@ fun BlurredImageBackground(
                     when (result) {
                         null ->
                             Box(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxSize(),
                                 contentAlignment = Alignment.Center
                             ) {
-                                PulseAnimation(modifier = modifier.size(60.dp))
+                                PulseAnimation(modifier = Modifier.size(60.dp))
                             }
 
                         else -> {

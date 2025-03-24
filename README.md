@@ -1,4 +1,4 @@
-<img width="415" alt="Screenshot 2025-03-24 at 8 34 49 PM" src="https://github.com/user-attachments/assets/3967ab72-2ce6-4ed6-b4d2-62953aa6b7d0" />BookPedia demonstrates modern Android development with Compose Multiplatform  using Koin, Coroutines, Flow, Jetpack (Room, ViewModel), and Material Design based on MVVM architecture
+BookPedia demonstrates modern Android development with Compose Multiplatform  using Koin, Coroutines, Flow, Jetpack (Room, ViewModel), and Material Design based on MVVM architecture
 This is a Kotlin Multiplatform project targeting Android and iOS.
 
 **Features** :
